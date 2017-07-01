@@ -17,7 +17,6 @@
 - 修改application.yml，更新MySQL账号和密码、数据库名称
 - Eclipse、IDEA运行RenrenApplication.java，则可启动项目
 - 项目访问路径：http://localhost
-- 账号密码：admin/admin
 
 **演示效果图：**
 ![输入图片说明](http://cdn.renren.io/img/82b99a1f0f884454ac3fff5e7f658ac8 "在这里输入图片标题")
