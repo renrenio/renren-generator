@@ -1,7 +1,7 @@
-package ${package}.dao;
+package ${package}.${moduleName}.dao;
 
-import ${package}.entity.${className}Entity;
-import io.renren.modules.sys.dao.BaseDao;
+import ${package}.${moduleName}.entity.${className}Entity;
+import ${mainPath}.modules.sys.dao.BaseDao;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

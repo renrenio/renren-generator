@@ -1,8 +1,7 @@
-package ${package}.entity;
+package ${package}.${moduleName}.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-
 #if(${hasBigDecimal})
 import java.math.BigDecimal;
 #end

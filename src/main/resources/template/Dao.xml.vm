@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="${package}.dao.${className}Dao">
+<mapper namespace="${package}.${moduleName}.dao.${className}Dao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="${package}.entity.${className}Entity" id="${classname}Map">
+    <resultMap type="${package}.${moduleName}.entity.${className}Entity" id="${classname}Map">
 #foreach($column in $columns)
         <result property="${column.attrname}" column="${column.columnName}"/>
 #end
     </resultMap>
 
-	<select id="queryObject" resultType="${package}.entity.${className}Entity">
+	<select id="queryObject" resultType="${package}.${moduleName}.entity.${className}Entity">
 		select * from ${tableName} where ${pk.columnName} = #{value}
 	</select>
 
-	<select id="queryList" resultType="${package}.entity.${className}Entity">
+	<select id="queryList" resultType="${package}.${moduleName}.entity.${className}Entity">
 		select * from ${tableName}
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
@@ -33,7 +33,7 @@
 		select count(*) from ${tableName} 
 	</select>
 	 
-	<insert id="save" parameterType="${package}.entity.${className}Entity"#if($pk.extra == 'auto_increment') useGeneratedKeys="true" keyProperty="$pk.attrname"#end>
+	<insert id="save" parameterType="${package}.${moduleName}.entity.${className}Entity"#if($pk.extra == 'auto_increment') useGeneratedKeys="true" keyProperty="$pk.attrname"#end>
 		insert into ${tableName}
 		(
 #foreach($column in $columns)
@@ -54,7 +54,7 @@
 		)
 	</insert>
 	 
-	<update id="update" parameterType="${package}.entity.${className}Entity">
+	<update id="update" parameterType="${package}.${moduleName}.entity.${className}Entity">
 		update ${tableName} 
 		<set>
 #foreach($column in $columns)
