@@ -1,6 +1,6 @@
-package ${package}.service;
+package ${package}.${moduleName}.service;
 
-import ${package}.entity.${className}Entity;
+import ${package}.${moduleName}.entity.${className}Entity;
 
 import java.util.List;
 import java.util.Map;
