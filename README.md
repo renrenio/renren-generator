@@ -6,6 +6,7 @@
 **如何交流、反馈、参与贡献？** 
 - Git仓库：https://gitee.com/renrenio/renren-generator
 - [人人开源](http://www.renren.io)：http://www.renren.io   
+- [官方社区](http://www.renren.io/?s=index/Community)：http://www.renren.io/?s=index/Community   
 - 官方QQ群：324780204、145799952
 - 如需关注项目最新动态，请Watch、Star项目，同时也是对项目最好的支持
 <br> 
