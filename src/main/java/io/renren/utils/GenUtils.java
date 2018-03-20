@@ -36,8 +36,8 @@ public class GenUtils {
         templates.add("template/Service.java.vm");
         templates.add("template/ServiceImpl.java.vm");
         templates.add("template/Controller.java.vm");
-        templates.add("template/list.html.vm");
-        templates.add("template/list.js.vm");
+        templates.add("template/adminlte/list.html.vm");
+        templates.add("template/adminlte/list.js.vm");
         templates.add("template/menu.sql.vm");
         return templates;
     }
@@ -200,12 +200,12 @@ public class GenUtils {
         }
 
         if (template.contains("list.html.vm" )) {
-            return "main" + File.separator + "resources" + File.separator + "views" + File.separator
+            return "main" + File.separator + "resources" + File.separator + "adminlte" + File.separator
                     + "modules" + File.separator + moduleName + File.separator + className.toLowerCase() + ".html";
         }
 
         if (template.contains("list.js.vm" )) {
-            return "main" + File.separator + "resources" + File.separator + "static" + File.separator + "js" + File.separator
+            return "main" + File.separator + "resources" + File.separator + "adminlte" + File.separator + "js" + File.separator
                     + "modules" + File.separator + moduleName + File.separator + className.toLowerCase() + ".js";
         }
 
