@@ -8,6 +8,7 @@
 - [人人开源](http://www.renren.io)：http://www.renren.io   
 - [官方社区](http://www.renren.io/?s=index/Community)：http://www.renren.io/?s=index/Community   
 - 官方QQ群：324780204、145799952
+- 如需寻求帮助、项目建议、技术讨论等，请移步到官方社区，我会在第一时间进行解答或回复
 - 如需关注项目最新动态，请Watch、Star项目，同时也是对项目最好的支持
 <br> 
 
