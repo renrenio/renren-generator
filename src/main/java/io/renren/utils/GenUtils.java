@@ -38,12 +38,8 @@ public class GenUtils {
         templates.add("template/Controller.java.vm");
         templates.add("template/menu.sql.vm");
 
-        templates.add("template/adminlte/list.html.vm");
-        templates.add("template/adminlte/list.js.vm");
-
-        templates.add("template/elementui/index.vue.vm");
-        templates.add("template/elementui/add-or-update.vue.vm");
-        templates.add("template/elementui/index.js.vm");
+        templates.add("template/index.vue.vm");
+        templates.add("template/add-or-update.vue.vm");
 
         return templates;
     }
@@ -209,29 +205,14 @@ public class GenUtils {
             return className.toLowerCase() + "_menu.sql";
         }
 
-        if (template.contains("list.html.vm" )) {
-            return "main" + File.separator + "resources" + File.separator + "adminlte" + File.separator
-                    + "modules" + File.separator + moduleName + File.separator + className.toLowerCase() + ".html";
-        }
-
-        if (template.contains("list.js.vm" )) {
-            return "main" + File.separator + "resources" + File.separator + "adminlte" + File.separator + "js" + File.separator
-                    + "modules" + File.separator + moduleName + File.separator + className.toLowerCase() + ".js";
-        }
-
         if (template.contains("index.vue.vm" )) {
-            return "main" + File.separator + "resources" + File.separator + "elementui" + File.separator + "src" + File.separator + "views" +
-                    File.separator + className.toLowerCase() + File.separator + "index.vue";
+            return "main" + File.separator + "resources" + File.separator + "src" + File.separator + "views" + File.separator + "modules" +
+                    File.separator + moduleName + File.separator + className.toLowerCase() + ".vue";
         }
 
         if (template.contains("add-or-update.vue.vm" )) {
-            return "main" + File.separator + "resources" + File.separator + "elementui" + File.separator + "src" + File.separator + "views" +
-                    File.separator + className.toLowerCase() + File.separator +"add-or-update.vue";
-        }
-
-        if (template.contains("index.js.vm" )) {
-            return "main" + File.separator + "resources" + File.separator + "elementui" + File.separator + "src" + File.separator + "api" +
-                    File.separator+ "modules" + File.separator + className.toLowerCase() + ".js";
+            return "main" + File.separator + "resources" + File.separator + "src" + File.separator + "views" + File.separator + "modules" +
+                    File.separator + moduleName + File.separator + className.toLowerCase() + "-add-or-update.vue";
         }
 
         return null;

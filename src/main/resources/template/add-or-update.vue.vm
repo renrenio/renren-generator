@@ -6,10 +6,10 @@
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
 #foreach($column in $columns)
 #if($column.columnName != $pk.columnName)
-      <el-form-item label="${column.comments}" prop="${column.attrname}">
-        <el-input v-model="dataForm.${column.attrname}" placeholder="${column.comments}"></el-input>
-      </el-form-item>
-#end			
+    <el-form-item label="${column.comments}" prop="${column.attrname}">
+      <el-input v-model="dataForm.${column.attrname}" placeholder="${column.comments}"></el-input>
+    </el-form-item>
+#end
 #end
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -20,7 +20,6 @@
 </template>
 
 <script>
-  import API from '@/api'
   export default {
     data () {
       return {
@@ -54,7 +53,11 @@
         this.$nextTick(() => {
           this.$refs['dataForm'].resetFields()
           if (this.dataForm.${pk.attrname}) {
-            API.${pathName}.info(this.dataForm.${pk.attrname}).then(({data}) => {
+            this.$http({
+              url: #[[this.$http.adornUrl]]#(`/${moduleName}/${pathName}/info/#[[$]]#{this.dataForm.${pk.attrname}}`),
+              method: 'get',
+              #[[params: this.$http.adornParams()]]#
+            }).then(({data}) => {
               if (data && data.code === 0) {
 #foreach($column in $columns)
 #if($column.columnName != $pk.columnName)
@@ -70,18 +73,20 @@
       dataFormSubmit () {
         #[[this.$refs['dataForm'].validate((valid) => {]]#
           if (valid) {
-            var params = {
+            this.$http({
+              url: #[[this.$http.adornUrl]]#(`/${moduleName}/${pathName}/${!this.dataForm.${pk.attrname} ? 'save' : 'update'}`),
+              method: 'post',
+              #[[data: this.$http.adornData({]]#
 #foreach($column in $columns)
 #if($column.columnName == $pk.columnName)
-              '${column.attrname}': this.dataForm.${column.attrname} || undefined,
+                '${column.attrname}': this.dataForm.${column.attrname} || undefined,
 #else
-              '${column.attrname}': this.dataForm.${column.attrname}#if($velocityCount != $columns.size()),#end
+                '${column.attrname}': this.dataForm.${column.attrname}#if($velocityCount != $columns.size()),#end
 
 #end
 #end
-            }
-            var tick = !this.dataForm.${pk.attrname} ? API.${pathName}.add(params) : API.${pathName}.update(params)
-            tick.then(({data}) => {
+              })
+            }).then(({data}) => {
               if (data && data.code === 0) {
                 #[[this.$message({]]#
                   message: '操作成功',

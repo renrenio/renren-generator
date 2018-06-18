@@ -57,8 +57,7 @@
 </template>
 
 <script>
-  import API from '@/api'
-  import AddOrUpdate from './add-or-update'
+  import AddOrUpdate from './${pathName}-add-or-update'
   export default {
     data () {
       return {
@@ -84,12 +83,15 @@
       // 获取数据列表
       getDataList () {
         this.dataListLoading = true
-        var params = {
-          page: this.pageIndex,
-          limit: this.pageSize,
-          key: this.dataForm.key
-        }
-        API.${pathName}.list(params).then(({data}) => {
+        #[[this.$http({]]#
+          #[[url: this.$http.adornUrl]]#('/${moduleName}/${pathName}/list'),
+          method: 'get',
+          #[[params: this.$http.adornParams({]]#
+            'page': this.pageIndex,
+            'limit': this.pageSize,
+            'key': this.dataForm.key
+          })
+        }).then(({data}) => {
           if (data && data.code === 0) {
             this.dataList = data.page.list
             this.totalPage = data.page.totalCount
@@ -118,7 +120,7 @@
       // 新增 / 修改
       addOrUpdateHandle (id) {
         this.addOrUpdateVisible = true
-        this.$nextTick(() => {
+        #[[this.$nextTick(() => {]]#
           this.$refs.addOrUpdate.init(id)
         })
       },
@@ -132,9 +134,13 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          API.${pathName}.del(ids).then(({data}) => {
+          #[[this.$http({]]#
+            url: #[[this.$http.adornUrl]]#('/${moduleName}/${pathName}/delete'),
+            method: 'post',
+            data: this.$http.adornData(ids, false)
+          }).then(({data}) => {
             if (data && data.code === 0) {
-              this.$message({
+              #[[this.$message({]]#
                 message: '操作成功',
                 type: 'success',
                 duration: 1500,
