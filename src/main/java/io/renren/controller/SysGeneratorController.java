@@ -46,23 +46,19 @@ public class SysGeneratorController {
 		
 		return R.ok().put("page", pageUtil);
 	}
-	
+
 	/**
 	 * 生成代码
 	 */
 	@RequestMapping("/code")
-	public void code(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		String[] tableNames = new String[]{};
-		String tables = request.getParameter("tables");
-		tableNames = JSON.parseArray(tables).toArray(tableNames);
-		
-		byte[] data = sysGeneratorService.generatorCode(tableNames);
-		
-		response.reset();  
-        response.setHeader("Content-Disposition", "attachment; filename=\"renren.zip\"");  
-        response.addHeader("Content-Length", "" + data.length);  
-        response.setContentType("application/octet-stream; charset=UTF-8");  
-  
-        IOUtils.write(data, response.getOutputStream());  
+	public void code(String tables, HttpServletResponse response) throws IOException{
+		byte[] data = sysGeneratorService.generatorCode(tables.split(","));
+
+		response.reset();
+		response.setHeader("Content-Disposition", "attachment; filename=\"renren.zip\"");
+		response.addHeader("Content-Length", "" + data.length);
+		response.setContentType("application/octet-stream; charset=UTF-8");
+
+		IOUtils.write(data, response.getOutputStream());
 	}
 }
