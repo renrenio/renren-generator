@@ -57,7 +57,7 @@ public class GenUtils {
         tableEntity.setTableName(table.get("tableName" ));
         tableEntity.setComments(table.get("tableComment" ));
         //表名转换成Java类名
-        String className = tableToJava(tableEntity.getTableName(), config.getString("tablePrefix" ));
+        String className = tableToJava(tableEntity.getTableName(), config.getStringArray("tablePrefix"));
         tableEntity.setClassName(className);
         tableEntity.setClassname(StringUtils.uncapitalize(className));
 
@@ -150,9 +150,11 @@ public class GenUtils {
     /**
      * 表名转换成Java类名
      */
-    public static String tableToJava(String tableName, String tablePrefix) {
-        if (StringUtils.isNotBlank(tablePrefix)) {
-            tableName = tableName.replaceFirst(tablePrefix, "" );
+    public static String tableToJava(String tableName, String[] tablePrefixArray) {
+        if(null != tablePrefixArray && tablePrefixArray.length>0){
+            for(String tablePrefix : tablePrefixArray){
+                tableName = tableName.replace(tablePrefix, "");
+            }
         }
         return columnToJava(tableName);
     }
