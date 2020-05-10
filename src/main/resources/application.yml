@@ -7,8 +7,8 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     #MySQL配置
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/renren_fast?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
-    username: renren
+    url: jdbc:mysql://localhost:3306/mysql?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
     password: 123456
     #oracle配置
     #    driverClassName: oracle.jdbc.OracleDriver
@@ -25,12 +25,23 @@ spring:
   #    url: jdbc:postgresql://192.168.10.10:5432/renren_fast
   #    username: postgres
   #    password: 123456
+
+
+
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
   resources:
     static-locations: classpath:/static/,classpath:/views/
 
+mongodb:
+  host: localhost
+  port: 27017
+  auth: false #是否使用密码验证
+  username: tincery
+  password: Txy123.com
+  source: tincery_pro
+  database: tincery_pro
 
 mybatis-plus:
   mapperLocations: classpath:mapper/**/*.xml
@@ -42,7 +53,7 @@ pagehelper:
   params: count=countSql
 
 
-#指定数据库，可选值有【mysql、oracle、sqlserver、postgresql】
+#指定数据库，可选值有【mysql、oracle、sqlserver、postgresql、mongodb】
 renren:
-  database: mysql
+  database: mongodb
 

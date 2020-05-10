@@ -33,7 +33,10 @@ public class DbConfig {
     private SQLServerGeneratorDao sqlServerGeneratorDao;
     @Autowired
     private PostgreSQLGeneratorDao postgreSQLGeneratorDao;
+    @Autowired
+    private MongoDBGeneratorDao mongoDBGeneratorDao;
 
+    private static boolean mongo = false;
     @Bean
     @Primary
     public GeneratorDao getGeneratorDao(){
@@ -45,8 +48,16 @@ public class DbConfig {
             return sqlServerGeneratorDao;
         }else if("postgresql".equalsIgnoreCase(database)){
             return postgreSQLGeneratorDao;
-        }else {
+        }else if("mongodb".equalsIgnoreCase(database)){
+            mongo = true;
+            return mongoDBGeneratorDao;
+        }
+        else {
             throw new RRException("不支持当前数据库：" + database);
         }
     }
+    public static boolean isMongo(){
+        return mongo;
+    }
+
 }
