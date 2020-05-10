@@ -17,14 +17,15 @@ public enum Type {
     DOUBLE(1);
 
     private final int num;
+
     Type(int num) {
         this.num = num;
     }
 
-    public static String typeInfo(int num){
+    public static String typeInfo(int num) {
         Type[] values = values();
         for (Type value : values) {
-            if(Objects.equals(num,value.num)){
+            if (Objects.equals(num, value.num)) {
                 return value.toString();
             }
         }

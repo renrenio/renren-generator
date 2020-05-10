@@ -6,6 +6,7 @@ import org.apache.commons.collections.CollectionUtils;
 import java.io.Serializable;
 import java.util.*;
 
+
 /**
  * 解析表之后得到的信息实体
  * 换句话说这个类就是一张mongo一张表的内容
@@ -24,11 +25,11 @@ public class MongoDefinition implements Serializable {
     private List<MongoDefinition> child;
 
 
-    public List<MongoGeneratorEntity> getChildrenInfo(String tableName){
+    public List<MongoGeneratorEntity> getChildrenInfo(String tableName) {
         List<MongoGeneratorEntity> result = new ArrayList<>();
         MongoGeneratorEntity info = new MongoGeneratorEntity();
         // 表信息
-        Map<String, String> tableInfo =  MongoTableInfoAdaptor.tableInfo(tableName);
+        Map<String, String> tableInfo = MongoTableInfoAdaptor.tableInfo(tableName);
         // 列名信息
         List<Map<String, String>> columnsInfo = new ArrayList<>();
         info.setColumns(columnsInfo);
@@ -37,11 +38,11 @@ public class MongoDefinition implements Serializable {
         List<MongoDefinition> child = this.getChild();
         for (MongoDefinition mongoDefinition : child) {
             Map<String, String> columnInfo = new HashMap<>(5);
-            columnInfo.put("columnName",mongoDefinition.getPropertyName());
-            columnInfo.put("dataType",Type.typeInfo(mongoDefinition.getType()));
-            columnInfo.put("extra",mongoDefinition.isArray()?"array":"");
+            columnInfo.put("columnName", mongoDefinition.getPropertyName());
+            columnInfo.put("dataType", Type.typeInfo(mongoDefinition.getType()));
+            columnInfo.put("extra", mongoDefinition.isArray() ? "array" : "");
             columnsInfo.add(columnInfo);
-            if(mongoDefinition.hasChild()){
+            if (mongoDefinition.hasChild()) {
                 result.addAll(mongoDefinition.getChildrenInfo(mongoDefinition.getPropertyName()));
             }
         }
@@ -57,7 +58,6 @@ public class MongoDefinition implements Serializable {
     public boolean primaryBean() {
         return type == null;
     }
-
 
 
     public MongoDefinition setType(Integer type) {

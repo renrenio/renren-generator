@@ -29,10 +29,10 @@ public class MongoDBGeneratorDao implements GeneratorDao {
 
     @Override
     public Map<String, String> queryTable(String tableName) {
-        Map<String,String> result = new HashMap<>(4*4/3+1);
+        Map<String, String> result = new HashMap<>(4 * 4 / 3 + 1);
         result.put("engine", "");
         result.put("createTime", "");
-        result.put("tableComment", "mongoDB "+tableName);
+        result.put("tableComment", "mongoDB " + tableName);
         result.put("tableName", tableName);
         return result;
 
@@ -41,7 +41,7 @@ public class MongoDBGeneratorDao implements GeneratorDao {
     @Override
     public List<Map<String, String>> queryColumns(String tableName) {
         MongoDefinition mongoDefinition = MongoManager.getInfo(tableName);
-        if(mongoDefinition == null){
+        if (mongoDefinition == null) {
             System.out.println(tableName);
             MongoScanner mongoScanner = new MongoScanner(mongoDBCollectionFactory.getCollection(tableName));
             mongoDefinition = mongoScanner.getProduct();

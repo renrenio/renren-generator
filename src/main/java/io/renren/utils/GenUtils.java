@@ -195,8 +195,8 @@ public class GenUtils {
         for (Map<String, String> column : mongoGeneratorEntity.getColumns()) {
             ColumnEntity columnEntity = new ColumnEntity();
             String columnName = column.get("columnName");
-            if(columnName.contains(".")){
-                columnName = columnName.substring(columnName.lastIndexOf(".")+1);
+            if (columnName.contains(".")) {
+                columnName = columnName.substring(columnName.lastIndexOf(".") + 1);
             }
             columnEntity.setColumnName(columnName);
             columnEntity.setDataType(column.get("dataType"));
@@ -301,7 +301,7 @@ public class GenUtils {
             packagePath += packageName.replace(".", File.separator) + File.separator + moduleName + File.separator;
         }
         if (template.contains("MongoChildrenEntity.java.vm")) {
-            return packagePath + "entity" + File.separator + "inner" + File.separator + currentTableName +File.separator+className + "InnerEntity.java";
+            return packagePath + "entity" + File.separator + "inner" + File.separator + currentTableName + File.separator + className + "InnerEntity.java";
         }
         if (template.contains("Entity.java.vm") || template.contains("MongoEntity.java.vm")) {
             return packagePath + "entity" + File.separator + className + "Entity.java";

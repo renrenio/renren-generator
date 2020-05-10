@@ -35,8 +35,8 @@ public class MongoConfig {
         ServerAddress serverAddress = new ServerAddress(this.host, this.port);
         adds.add(serverAddress);
         if (this.auth) {
-            MongoCredential mongoCredential
-                    = MongoCredential.createScramSha1Credential(this.username, this.source, this.password.toCharArray());
+            MongoCredential mongoCredential = MongoCredential.
+                    createScramSha1Credential(this.username, this.source, this.password.toCharArray());
             MongoClientOptions mongoClientOptions = MongoClientOptions.builder().build();
             return new MongoClient(adds, mongoCredential, mongoClientOptions);
         }

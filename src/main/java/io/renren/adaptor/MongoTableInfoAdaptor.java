@@ -27,6 +27,7 @@ public class MongoTableInfoAdaptor {
         }
         return result;
     }
+
     public static Map<String, String> tableInfo(String name) {
         Map<String, String> tableInfo = new HashMap<>(4 * 4 / 3 + 1);
         tableInfo.put("engine", "mongo无引擎");
@@ -51,7 +52,7 @@ public class MongoTableInfoAdaptor {
             String extra = definition.isArray() ? "array" : "";
             map.put("extra", extra);
             map.put("columnComment", "");
-            map.put("dataType", definition.hasChild()?propertyName:type);
+            map.put("dataType", definition.hasChild() ? propertyName : type);
             map.put("columnName", propertyName);
             // mongo默认主键是_id
             String columnKey = propertyName.equals(mongoKey) ? "PRI" : "";
@@ -60,7 +61,6 @@ public class MongoTableInfoAdaptor {
         }
         return result;
     }
-
 
 
 }
