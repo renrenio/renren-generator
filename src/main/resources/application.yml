@@ -25,12 +25,23 @@ spring:
   #    url: jdbc:postgresql://192.168.10.10:5432/renren_fast
   #    username: postgres
   #    password: 123456
+
+
+
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
   resources:
     static-locations: classpath:/static/,classpath:/views/
 
+#mongodb:
+#  host: localhost
+#  port: 27017
+#  auth: false #是否使用密码验证
+#  username: tincery
+#  password: renren
+#  source: 123456
+#  database: test
 
 mybatis-plus:
   mapperLocations: classpath:mapper/**/*.xml
@@ -42,7 +53,7 @@ pagehelper:
   params: count=countSql
 
 
-#指定数据库，可选值有【mysql、oracle、sqlserver、postgresql】
+#指定数据库，可选值有【mysql、oracle、sqlserver、postgresql、mongodb】
 renren:
   database: mysql
 
