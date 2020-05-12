@@ -34,14 +34,14 @@ spring:
   resources:
     static-locations: classpath:/static/,classpath:/views/
 
-mongodb:
-  host: localhost
-  port: 27017
-  auth: false #是否使用密码验证
-  username: tincery
-  password: Txy123.com
-  source: tincery_pro
-  database: tincery_pro
+#mongodb:
+#  host: localhost
+#  port: 27017
+#  auth: false #是否使用密码验证
+#  username: tincery
+#  password: Txy123.com
+#  source: tincery_pro
+#  database: test
 
 mybatis-plus:
   mapperLocations: classpath:mapper/**/*.xml
@@ -55,5 +55,5 @@ pagehelper:
 
 #指定数据库，可选值有【mysql、oracle、sqlserver、postgresql、mongodb】
 renren:
-  database: mongodb
+  database: mysql
 

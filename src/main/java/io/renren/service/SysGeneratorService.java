@@ -36,15 +36,14 @@ import java.util.zip.ZipOutputStream;
 public class SysGeneratorService {
     @Autowired
     private GeneratorDao generatorDao;
-    @Autowired
-    private MongoDBCollectionFactory mongoDBCollectionFactory;
+
 
     public PageUtils queryList(Query query) {
         Page<?> page = PageHelper.startPage(query.getPage(), query.getLimit());
         List<Map<String, Object>> list = generatorDao.queryList(query);
         int total = (int) page.getTotal();
         if (generatorDao instanceof MongoDBGeneratorDao) {
-            total = mongoDBCollectionFactory.getCollectionTotal(query);
+            total = MongoDBCollectionFactory.getCollectionTotal(query);
         }
         return new PageUtils(list, total, query.getLimit(), query.getPage());
     }

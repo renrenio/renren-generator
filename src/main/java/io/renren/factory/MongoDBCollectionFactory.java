@@ -3,10 +3,13 @@ package io.renren.factory;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
+import io.renren.config.MongoCondition;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,16 +20,23 @@ import java.util.stream.Collectors;
  **/
 
 @Component
+@Conditional(MongoCondition.class)
 public class MongoDBCollectionFactory {
 
-    private final String TABLE_NAME_KEY = "tableName";
-    private final String LIMIT_KEY = "limit";
-    private final String OFFSET_KEY = "offset";
+    private static  final String TABLE_NAME_KEY = "tableName";
+    private static final String LIMIT_KEY = "limit";
+    private static final String OFFSET_KEY = "offset";
 
+    private static MongoDatabase mongoDatabase;
 
+    // 此处是为了兼容mongo相关内容和关系型数据库的静态耦合所导致的问题
 
     @Autowired
-    private MongoDatabase mongoDatabase;
+    private MongoDatabase database;
+    @PostConstruct
+    public void initMongoDatabase(){
+        mongoDatabase = database;
+    }
 
     /***
      * 通过表名获得查询对象
@@ -47,7 +57,7 @@ public class MongoDBCollectionFactory {
      * @param map 这是查询条件 和关系型数据库一致
      * @return 集合名称
      **/
-    public List<String> getCollectionNames(Map<String, Object> map) {
+    public static List<String>  getCollectionNames(Map<String, Object> map) {
         int limit = Integer.valueOf(map.get(LIMIT_KEY).toString());
         int skip = Integer.valueOf(map.get(OFFSET_KEY).toString());
         List<String> names;
@@ -65,7 +75,7 @@ public class MongoDBCollectionFactory {
      * @param map 这是查询条件 和关系型数据库一致
      * @return int
      **/
-    public int getCollectionTotal(Map<String, Object> map) {
+    public static int getCollectionTotal(Map<String, Object> map) {
         if (map.containsKey(TABLE_NAME_KEY)) {
             return getCollectionNames(map.get(TABLE_NAME_KEY).toString()).size();
         }
@@ -74,7 +84,7 @@ public class MongoDBCollectionFactory {
     }
 
 
-    private List<String> getCollectionNames() {
+    private static List<String> getCollectionNames() {
         MongoIterable<String> names = mongoDatabase.listCollectionNames();
         List<String> result = new ArrayList<>();
         for (String name : names) {
@@ -83,7 +93,7 @@ public class MongoDBCollectionFactory {
         return result;
     }
 
-    private List<String> getCollectionNames(String likeName) {
+    private static List<String> getCollectionNames(String likeName) {
         return getCollectionNames()
                 .stream()
                 .filter((name) -> name.contains(likeName)).collect(Collectors.toList());

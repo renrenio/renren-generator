@@ -13,6 +13,7 @@ import io.renren.utils.RRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
@@ -33,13 +34,12 @@ public class DbConfig {
     private SQLServerGeneratorDao sqlServerGeneratorDao;
     @Autowired
     private PostgreSQLGeneratorDao postgreSQLGeneratorDao;
-    @Autowired
-    private MongoDBGeneratorDao mongoDBGeneratorDao;
 
     private static boolean mongo = false;
 
     @Bean
     @Primary
+    @Conditional(MongoNullCondition.class)
     public GeneratorDao getGeneratorDao() {
         if ("mysql".equalsIgnoreCase(database)) {
             return mySQLGeneratorDao;
@@ -49,12 +49,17 @@ public class DbConfig {
             return sqlServerGeneratorDao;
         } else if ("postgresql".equalsIgnoreCase(database)) {
             return postgreSQLGeneratorDao;
-        } else if ("mongodb".equalsIgnoreCase(database)) {
-            mongo = true;
-            return mongoDBGeneratorDao;
         } else {
             throw new RRException("不支持当前数据库：" + database);
         }
+    }
+
+    @Bean
+    @Primary
+    @Conditional(MongoCondition.class)
+    public GeneratorDao getMongoDBDao(MongoDBGeneratorDao mongoDBGeneratorDao) {
+        mongo = true;
+        return mongoDBGeneratorDao;
     }
 
     public static boolean isMongo() {

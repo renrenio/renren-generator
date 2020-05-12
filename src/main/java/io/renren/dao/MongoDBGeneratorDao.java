@@ -1,11 +1,13 @@
 package io.renren.dao;
 
 import io.renren.adaptor.MongoTableInfoAdaptor;
+import io.renren.config.MongoCondition;
 import io.renren.config.MongoManager;
 import io.renren.entity.mongo.MongoDefinition;
 import io.renren.factory.MongoDBCollectionFactory;
 import io.renren.utils.MongoScanner;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -16,14 +18,15 @@ import java.util.Map;
  * @author: gxz gongxuanzhang@foxmail.com
  **/
 @Repository
+@Conditional(MongoCondition.class)
 public class MongoDBGeneratorDao implements GeneratorDao {
 
-    @Autowired
+
     private MongoDBCollectionFactory mongoDBCollectionFactory;
 
     @Override
     public List<Map<String, Object>> queryList(Map<String, Object> map) {
-        List<String> collectionNames = mongoDBCollectionFactory.getCollectionNames(map);
+        List<String> collectionNames = MongoDBCollectionFactory.getCollectionNames(map);
         return (List) MongoTableInfoAdaptor.tableInfo(collectionNames);
     }
 
