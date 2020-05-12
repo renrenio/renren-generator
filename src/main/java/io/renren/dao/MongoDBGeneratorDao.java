@@ -21,7 +21,7 @@ import java.util.Map;
 @Conditional(MongoCondition.class)
 public class MongoDBGeneratorDao implements GeneratorDao {
 
-
+    @Autowired
     private MongoDBCollectionFactory mongoDBCollectionFactory;
 
     @Override

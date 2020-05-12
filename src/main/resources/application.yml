@@ -39,8 +39,8 @@ spring:
 #  port: 27017
 #  auth: false #是否使用密码验证
 #  username: tincery
-#  password: Txy123.com
-#  source: tincery_pro
+#  password: renren
+#  source: 123456
 #  database: test
 
 mybatis-plus:
