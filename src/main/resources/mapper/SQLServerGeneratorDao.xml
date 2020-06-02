@@ -5,7 +5,7 @@
 	<select id="queryList" resultType="map">
 		select * from
 		(
-		select cast(so.name as varchar(500)) as tableName, cast(sep.value as varchar(500)) as tableComment, getDate() as createTime
+		select cast(so.name as nvarchar(500)) as tableName, cast(sep.value as nvarchar(500)) as tableComment, getDate() as createTime
 		from sysobjects so
 		left JOIN sys.extended_properties sep
 		on sep.major_id=so.id and sep.minor_id=0
@@ -19,7 +19,7 @@
 
 	<select id="queryTable" resultType="map">
 		select * from (
-			select cast(so.name as varchar(500)) as tableName, 'mssql' as engine,cast(sep.value as varchar(500)) as tableComment, getDate() as createTime
+			select cast(so.name as nvarchar(500)) as tableName, 'mssql' as engine,cast(sep.value as nvarchar(500)) as tableComment, getDate() as createTime
 			from sysobjects so
 			left JOIN sys.extended_properties sep on sep.major_id=so.id and sep.minor_id=0
 			where (xtype='U' or xtype='v')
@@ -29,13 +29,13 @@
 	<select id="queryColumns" resultType="map">
 		SELECT
 		cast(
-			b.NAME AS VARCHAR(500)
+			b.NAME AS NVARCHAR(500)
 		) AS columnName,
 		cast(
-			sys.types.NAME AS VARCHAR(500)
+			sys.types.NAME AS NVARCHAR(500)
 		) AS dataType,
 		cast(
-			c.VALUE AS VARCHAR(500)
+			c.VALUE AS NVARCHAR(500)
 		) AS columnComment,
 		(
 			SELECT
